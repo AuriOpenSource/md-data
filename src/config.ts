@@ -1,7 +1,5 @@
-import { ExtractConfig } from './types';
-
 /** Default config for mdExtract */
-export const defaultConfig: ExtractConfig = {
+export const defaultConfig = {
   slugify: {
     replacement: '-',
     remove: /[*+~.()'"!:@$%^()]/g,
@@ -10,4 +8,4 @@ export const defaultConfig: ExtractConfig = {
     trim: true
   },
   omitContent: false
-};
+} as ExtractConfig;

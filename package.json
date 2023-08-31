@@ -1,24 +1,42 @@
 {
   "name": "extract-md-data",
-  "author": "Claire Froelich",
-  "version": "2.0.6",
+  "author": "Lucas Ouverney",
+  "version": "2.0.7",
   "description": "A utility for getting JSON data about all markdown files in a given dir. Useful for building static site generators. Extracts data such as frontmatter, markdown content, relativePath, slug, id.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/clairefro/extract-md-data.git"
+    "url": "https://github.com/realfakenerd/extract-md-data"
   },
   "scripts": {
-    "test": "jest --config jestconfig.json",
-    "build": "tsc",
+    "test": "vitest",
+    "bench": "vitest bench",
+    "build": "wireit",
     "lint": "eslint . --ext .ts",
     "pack-dry": "npm pack --dry-run",
-    "prepare": "npm run build",
+    "prepare": "wireit",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
     "version": "git add -A src",
     "postversion": "git push && git push --tags origin main"
+  },
+  "wireit": {
+    "prepare": {
+      "command": "pnpm build"
+    },
+    "build": {
+      "command": "tsc --build --pretty",
+      "clean": "if-file-deleted",
+      "files": [
+        "src/**/*.ts",
+        "tsconfig.json"
+      ],
+      "output": [
+        "lib/**",
+        ".tsbuildinfo"
+      ]
+    }
   },
   "keywords": [
     "markdown",
@@ -29,21 +47,23 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "@types/jest": "^27.4.0",
+    "@types/node": "^20.5.7",
     "@types/string-hash": "^1.1.1",
-    "@typescript-eslint/eslint-plugin": "^5.9.0",
-    "@typescript-eslint/parser": "^5.9.0",
-    "eslint": "^8.6.0",
-    "jest": "^27.4.5",
-    "ts-jest": "^27.1.2",
-    "typescript": "^4.5.4"
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "eslint": "^8.48.0",
+    "gray-matter": "^4.0.3",
+    "lru-cache": "^10.0.1",
+    "slugify": "^1.6.6",
+    "terser": "^5.19.3",
+    "typescript": "^5.2.2",
+    "uuid-by-string": "^4.0.0",
+    "vite": "^4.4.9",
+    "vitest": "^0.34.3",
+    "wireit": "^0.11.0"
   },
+  "type": "module",
   "files": [
     "lib/"
-  ],
-  "dependencies": {
-    "gray-matter": "^4.0.3",
-    "slugify": "^1.6.5",
-    "uuid-by-string": "^3.0.5"
-  }
+  ]
 }

@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
+    "target": "ESNext",
+    "module": "NodeNext",
     "declaration": true,
-    "outDir": "./lib",
+    "outDir": "dist",
     "strict": true,
-    "moduleResolution": "node",
-    "esModuleInterop": true
+    "moduleResolution": "NodeNext",
+    "esModuleInterop": true,
+    "incremental": true
   },
   "include": ["src"],
-  "exclude": ["node_modules", "**/__tests__/*"]
+  "exclude": ["node_modules", "src/**/*.test.ts", "src/**/*.bench.ts"]
 }
