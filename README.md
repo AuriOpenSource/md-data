@@ -50,15 +50,15 @@ God created another markdown
 
 To get JSON data for all the markdown files in `docs` folder:
 
-```js
+```ts
 // index.js
 
-const extract = require('extract-md-data');
-const path = require('path');
+import extract from '@aurios/md-data';
+import {resolve} from 'path';
 
 /* Define project rootDir and srcDir where the markdown files live */
-const rootDir = path.resolve(__dirname);
-const srcDir = path.resolve(rootDir, 'docs');
+const rootDir = resolve(__dirname);
+const srcDir = resolve(rootDir, 'docs');
 
 const jsons = extract(rootDir, srcDir);
 
@@ -106,6 +106,7 @@ You can make your own routing logic - perhaps you want to leverage `relativeDir`
 - extracts `relativeDir` for use with file-based routing
 - generates a unique `id` for each file by hashing the `relativePath`
 - generates a url-safe `slug` for each file based on the `filename`
+- typescript support
 
 ## Config
 
@@ -146,8 +147,8 @@ Boolean indicating whether or not to return markdown body `content`. You can set
 
 ### Install
 
-`npm install`
+`pnpm install`
 
 ### Testing
 
-`npm run test`
+`pnpm test`
