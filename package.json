@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/realfakenerd/extract-md-data"
+    "url": "https://github.com/AuriOpenSource/extract-md-data"
   },
   "scripts": {
     "test": "vitest",
