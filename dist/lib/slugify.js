@@ -23,3 +23,4 @@ function slugify(str, config = {}) {
     return slugifyInstance(str, _config);
 }
 export { slugify };
+//# sourceMappingURL=slugify.js.map

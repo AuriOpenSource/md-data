@@ -10,16 +10,16 @@ beforeAll(() => {
   testMarkdownFilepaths = getMarkdownFilepathsSync(dir) || [];
 });
 
-describe('extract()', () => {
+describe('extract()', async () => {
   const rootDir = resolve('.');
   const srcDir = resolve(rootDir, 'markdowns');
 
-  const jsons = extract(rootDir, srcDir);
+  const jsons = await extract(rootDir, srcDir);
 
-  it('Returns objects of expected format', () => {
+  it('Returns objects of expected format', async () => {
     // deep dive jsons[0]
     expect(jsons[0].content).toMatch(
-      '\n# On the first day\n\nGod created markdown\n'
+      '\n# On the first day\n\nGod created markdown'
     );
     expect(jsons[0].relativePath).toMatch(`markdowns/flat/md1.md`);
     expect(jsons[0].relativeDir).toMatch(`markdowns/flat`);
@@ -47,11 +47,10 @@ describe('extract()', () => {
 
   it.todo('Should not return mf if no mf', () => {
     console.log(jsons);
-  })
+  });
 });
 
-
-describe('Config: options.omitContent', () => {
+describe('Config: options.omitContent', async () => {
   const opts = {
     omitContent: true
   };
@@ -59,17 +58,16 @@ describe('Config: options.omitContent', () => {
   const rootDir = resolve('.');
   const srcDir = resolve(rootDir, 'markdowns');
 
-  const jsonsWithConfig = extract(rootDir, srcDir, opts);
+  const jsonsWithConfig = await extract(rootDir, srcDir, opts);
 
   it('Returns objects of expected format', () => {
     expect(jsonsWithConfig.every((j) => !j.content)).toBe(true);
   });
 });
 
-
-describe('Config: options.slugify', () => {
+describe('Config: options.slugify', async () => {
   const removed = new RegExp('m');
-  
+
   const opts = {
     slugify: {
       remove: removed
@@ -79,7 +77,7 @@ describe('Config: options.slugify', () => {
   const rootDir = resolve('.');
   const srcDir = resolve(rootDir, 'markdowns');
 
-  const jsonsWithConfig = extract(rootDir, srcDir, opts);
+  const jsonsWithConfig = await extract(rootDir, srcDir, opts);
 
   it('Returns objects of expected format', () => {
     expect(jsonsWithConfig.every((j) => !j.slug.match(removed))).toBe(true);

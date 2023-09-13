@@ -9,3 +9,4 @@ export const defaultConfig = {
     },
     omitContent: false
 };
+//# sourceMappingURL=config.js.map

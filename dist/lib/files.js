@@ -56,3 +56,4 @@ function getMarkdownFilepathsSync(dir) {
     return getFilepathsByExtSync(dir, ['.md', '.markdown']);
 }
 export { getMarkdownFilepathsSync };
+//# sourceMappingURL=files.js.map

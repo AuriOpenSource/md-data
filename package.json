@@ -1,10 +1,10 @@
 {
   "name": "extract-md-data",
   "author": "Lucas Ouverney",
-  "version": "2.0.7",
+  "version": "2.1.0",
   "description": "A utility for getting JSON data about all markdown files in a given dir. Useful for building static site generators. Extracts data such as frontmatter, markdown content, relativePath, slug, id.",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/realfakenerd/extract-md-data"
@@ -13,13 +13,7 @@
     "test": "vitest",
     "bench": "vitest bench",
     "build": "wireit",
-    "lint": "eslint . --ext .ts",
-    "pack-dry": "npm pack --dry-run",
-    "prepare": "wireit",
-    "prepublishOnly": "npm test && npm run lint",
-    "preversion": "npm run lint",
-    "version": "git add -A src",
-    "postversion": "git push && git push --tags origin main"
+    "lint": "eslint . --ext .ts"
   },
   "wireit": {
     "prepare": {
@@ -33,8 +27,8 @@
         "tsconfig.json"
       ],
       "output": [
-        "lib/**",
-        ".tsbuildinfo"
+        "dist/**",
+        "dist/.tsbuildinfo"
       ]
     }
   },
@@ -45,7 +39,6 @@
     "file based routing",
     "static site generator"
   ],
-  "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.5.7",
     "@types/string-hash": "^1.1.1",
@@ -64,6 +57,6 @@
   },
   "type": "module",
   "files": [
-    "lib/"
+    "dist/"
   ]
 }

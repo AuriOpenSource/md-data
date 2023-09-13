@@ -5,9 +5,9 @@ import { defaultConfig } from './config.js';
 import { getMarkdownFilepathsSync } from './lib/files.js';
 import { parseMd } from './lib/markdown.js';
 import { slugify } from './lib/slugify.js';
-function extractFrontmatterAndContent(raw, config) {
-    const { fm, content: contentExtracted } = parseMd(raw);
-    const content = config.omitContent ? '' : contentExtracted;
+async function extractFrontmatterAndContent(filepath, config) {
+    const { fm, content: parsedContent } = await parseMd(filepath);
+    const content = config.omitContent ? '' : parsedContent;
     return { fm, content };
 }
 function extractFileInfo(filepath, rootDir, config) {
@@ -25,28 +25,29 @@ function extractFileInfo(filepath, rootDir, config) {
  * The `extract` function takes a root directory, source directory, and optional configuration object,
  * and returns an array of JSON objects containing information extracted from Markdown files in the
  * source directory.
- * @param {string} rootDir - The `rootDir` parameter is a string that represents the root directory
+ * @param rootDir - The `rootDir` parameter is a string that represents the root directory
  * path where the source directory is located.
- * @param {string} srcDir - The `srcDir` parameter is a string that represents the directory path where
+ * @param srcDir - The `srcDir` parameter is a string that represents the directory path where
  * the markdown files are located.
- * @param {ExtractConfig} _config - The `_config` parameter is an optional object that allows you to
+ * @param config - The `_config` parameter is an optional object that allows you to
  * customize the behavior of the `extract` function. It has the following properties:
  * @returns an array of objects. Each object contains properties such as `fm`, `content`,
  * `relativePath`, `relativeDir`, `filename`, `slug`, and `id`.
  */
-function extract(rootDir, srcDir, _config = {}) {
-    const config = { ...defaultConfig, ..._config };
+async function extract(rootDir, srcDir, config = {}) {
+    const _config = { ...defaultConfig, ...config };
     const srcDirPath = resolve(rootDir, srcDir);
     const mdFilepaths = getMarkdownFilepathsSync(srcDirPath);
     if (!mdFilepaths)
         throw new Error('404: Markdown not found');
-    const jsons = mdFilepaths.map((filepath) => {
+    const jsons = await Promise.all(mdFilepaths.map(async (filepath) => {
         const raw = readFileSync(filepath, 'utf-8');
         /** Get frontmatter and markdown content */
-        const { fm, content } = extractFrontmatterAndContent(raw, config);
-        const fileInfo = extractFileInfo(filepath, rootDir, config);
+        const { fm, content } = await extractFrontmatterAndContent(raw, _config);
+        const fileInfo = extractFileInfo(filepath, rootDir, _config);
         return { fm, content: content.replaceAll(/\r/g, ''), ...fileInfo };
-    });
+    }));
     return jsons;
 }
 export default extract;
+//# sourceMappingURL=extract.js.map
