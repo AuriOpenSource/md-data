@@ -1,5 +1,5 @@
 {
-  "name": "@auri/extract-md-data",
+  "name": "@auri/md-data",
   "author": "Lucas Ouverney",
   "version": "2.1.0",
   "description": "A utility for getting JSON data about all markdown files in a given dir. Useful for building static site generators. Extracts data such as frontmatter, markdown content, relativePath, slug, id.",
@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/AuriOpenSource/extract-md-data"
+    "url": "https://github.com/AuriOpenSource/md-data"
   },
   "scripts": {
     "test": "vitest",
