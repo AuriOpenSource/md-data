@@ -2,6 +2,7 @@
   "name": "@auri/md-data",
   "author": "Lucas Ouverney",
   "version": "2.1.0",
+  "private": false,
   "description": "A utility for getting JSON data about all markdown files in a given dir. Useful for building static site generators. Extracts data such as frontmatter, markdown content, relativePath, slug, id.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
